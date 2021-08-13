@@ -26,7 +26,7 @@ public class EventService implements IEventService{
 
 	@Override
 	public Event getEventById(long id) {
-		return repo.getById(id);
+		return repo.findById(id).get();
 	}
 
 	@Override

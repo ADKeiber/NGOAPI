@@ -17,19 +17,32 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@ApiModel(description="All details about a specific user")
 public class User {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+	@ApiModelProperty(notes = "The database generated user ID")
     private Long id;
 
+	@ApiModelProperty(notes = "User's first name")
     private String firstName;
+	
+	@ApiModelProperty(notes = "User's last name")
     private String lastName;
+	
+	@ApiModelProperty(notes = "User's email used for login")
     private String email;
+	
+	@ApiModelProperty(notes = "User's password used for login")
     private String password;
 
+	@ApiModelProperty(notes = "The User's roles and permissions")
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "users_roles",
@@ -39,12 +52,14 @@ public class User {
                     name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
 
+	@ApiModelProperty(notes = "Event's that the user signed up for")
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "users_events",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "event_id"))
     private Set<Event> registeredEvents;
     
+	@ApiModelProperty(notes = "The database generated event ID")
     public Set<Event> getRegisteredEvents() {
 		return registeredEvents;
 	}

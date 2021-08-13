@@ -1,5 +1,7 @@
 package com.example.NGOAPI.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,5 +35,12 @@ public class UserService implements IUserService{
 	public void createuser(User u) {
 		repo.save(u);
 	}
+
+	@Override
+	public List<User> getAllUsers() {
+		// TODO Auto-generated method stub
+		return repo.findAll();
+	}
+
 
 }
